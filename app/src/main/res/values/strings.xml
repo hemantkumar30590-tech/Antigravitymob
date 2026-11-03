@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Antigravity Web</string>
+    <string name="gateway_subtitle">Zero-Config Mobile Web Gateway &amp; Reverse Proxy</string>
+    <string name="tab_gateway">Gateway</string>
+    <string name="tab_workspace">Web IDE</string>
+    <string name="tab_logs">Console</string>
+    <string name="tab_apk_guide">APK &amp; Setup</string>
+    <string name="status_active">ACTIVE</string>
+    <string name="status_stopped">STOPPED</string>
+    <string name="status_standby">STANDBY</string>
+    <string name="btn_start_gateway">Start Gateway Proxy</string>
+    <string name="btn_stop_gateway">Stop Gateway Proxy</string>
+    <string name="btn_open_workspace">Open Fullscreen IDE</string>
+    <string name="btn_open_browser">Open in External Browser</string>
+    <string name="btn_check_status">Run Health Check (--status)</string>
+    <string name="btn_copy_url">Copy URL</string>
+    <string name="btn_share_lan">Share LAN URL</string>
+    <string name="label_proxy_port">Gateway Proxy Port</string>
+    <string name="label_target_host">Backend Target Host</string>
+    <string name="label_target_port">Antigravity Hub Port</string>
+    <string name="label_csrf_token">CSRF Bridge Token</string>
+    <string name="banner_content_desc">Antigravity Web Network Gateway Visualization</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "Antigravity Web",
+  "description": "Zero-config mobile web gateway, CSRF reverse-proxy bridge, self-healing watchdog, and fullscreen workspace for Antigravity IDE on Android.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
