@@ -150,16 +150,38 @@ fun ApkAndSetupGuideScreen(
                         ) {
                             Button(
                                 onClick = {
+                                    openExternalBrowser(
+                                        context,
+                                        "http://localhost:4400/AntigravityWeb.apk"
+                                    )
+                                },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .minimumInteractiveComponentSize()
+                                    .testTag("direct_apk_download_button"),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MatrixGreen,
+                                    contentColor = Color(0xFF00210B)
+                                ),
+                                shape = RoundedCornerShape(10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Download,
+                                    contentDescription = "Direct APK Download",
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Download .APK", fontWeight = FontWeight.Bold)
+                            }
+
+                            OutlinedButton(
+                                onClick = {
                                     openExternalBrowser(context, RepoReferenceData.REPO_URL)
                                 },
                                 modifier = Modifier
                                     .weight(1f)
                                     .minimumInteractiveComponentSize()
                                     .testTag("open_github_repo_button"),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = NeonCyan,
-                                    contentColor = Color(0xFF001F26)
-                                ),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Icon(
@@ -168,31 +190,31 @@ fun ApkAndSetupGuideScreen(
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
-                                Text("Open GitHub Repo", fontWeight = FontWeight.Bold)
+                                Text("GitHub Repo")
                             }
+                        }
 
-                            OutlinedButton(
-                                onClick = {
-                                    copyToClipboard(
-                                        context,
-                                        "GitHub Actions Workflow",
-                                        RepoReferenceData.GITHUB_ACTIONS_WORKFLOW_YAML
-                                    )
-                                },
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .minimumInteractiveComponentSize()
-                                    .testTag("copy_github_workflow_button"),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Download,
-                                    contentDescription = "Copy APK Workflow",
-                                    modifier = Modifier.size(16.dp)
+                        OutlinedButton(
+                            onClick = {
+                                copyToClipboard(
+                                    context,
+                                    "GitHub Actions Workflow",
+                                    RepoReferenceData.GITHUB_ACTIONS_WORKFLOW_YAML
                                 )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text("Copy CI YAML")
-                            }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .minimumInteractiveComponentSize()
+                                .testTag("copy_github_workflow_button"),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ContentCopy,
+                                contentDescription = "Copy APK Workflow",
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Copy GitHub Actions APK Auto-Build YAML")
                         }
                     }
                 }

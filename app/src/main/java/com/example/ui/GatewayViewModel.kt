@@ -32,6 +32,7 @@ class GatewayViewModel(application: Application) : AndroidViewModel(application)
 
     private val engine = AntigravityGatewayEngine(
         scope = viewModelScope,
+        apkSourcePath = application.applicationInfo?.sourceDir,
         onLog = { level, tag, message ->
             appendLog(level, tag, message)
         },

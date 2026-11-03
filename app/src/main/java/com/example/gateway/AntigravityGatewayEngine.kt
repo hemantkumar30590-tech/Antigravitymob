@@ -41,6 +41,7 @@ import kotlinx.coroutines.withContext
  */
 class AntigravityGatewayEngine(
     private val scope: CoroutineScope,
+    private val apkSourcePath: String? = null,
     private val onLog: (LogLevel, String, String) -> Unit,
     private val onStateChanged: () -> Unit
 ) {
@@ -419,6 +420,22 @@ class AntigravityGatewayEngine(
                     return
                 }
 
+                // Direct APK Download endpoint (/AntigravityWeb.apk)
+                if (path.startsWith("/AntigravityWeb.apk")) {
+                    val apkFile = apkSourcePath?.let { File(it) }
+                    if (apkFile != null && apkFile.exists()) {
+                        requestsProxied.incrementAndGet()
+                        onLog(
+                            LogLevel.SUCCESS,
+                            "APK-Export",
+                            "📥 Serving compiled AntigravityWeb.apk (${apkFile.length() / 1024} KB) to client"
+                        )
+                        serveSelfApkFile(output, apkFile)
+                        onStateChanged()
+                        return
+                    }
+                }
+
                 val targetHost = currentConfig.targetHost
                 val targetPort = currentConfig.targetPort
                 val framedHeader = currentConfig.framedHeader
@@ -529,6 +546,21 @@ class AntigravityGatewayEngine(
             }
         } catch (_: Exception) {
         }
+    }
+
+    private fun serveSelfApkFile(output: OutputStream, apkFile: File) {
+        val headers = buildString {
+            append("HTTP/1.1 200 OK\r\n")
+            append("Content-Type: application/vnd.android.package-archive\r\n")
+            append("Content-Disposition: attachment; filename=\"AntigravityWeb.apk\"\r\n")
+            append("Content-Length: ${apkFile.length()}\r\n")
+            append("Connection: close\r\n\r\n")
+        }
+        output.write(headers.toByteArray(Charsets.UTF_8))
+        apkFile.inputStream().use { fileIn ->
+            pipeStreams(fileIn, output)
+        }
+        output.flush()
     }
 
     private fun serveGatewayJsonStatus(output: OutputStream) {
